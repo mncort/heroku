@@ -6,15 +6,14 @@ var server_host = process.env.YOUR_HOST || '0.0.0.0';
 
 const app = express()
 
+let archivo = new Contenedor("test.JSON")
 
 const server = app.listen(server_port, server_host, () => {
     console.log(`El servidor esta escuchando en el puerto: ${server.address().port}`)
-    console.log(`La 'base de datos' cargo con exito ${contenedor.getAll().length} registros`)
+    archivo.getAll().then(data => console.log(`La 'base de datos' cargo con exito ${data.length} registros`))
 })
 
 server.on("error", error => console.log(`El servidor ha sufrido un error ${error}`))
-
-let archivo = new Contenedor("test.JSON")
 
 app.get('/productos', (request, response) => {
     archivo.getAll()
